@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Proceso de resolución · Pomodoro</title>
+  <style>
+    :root { --bg: #f3f1ec; --card: #fbfaf7; --ink: #2b2b2a; --soft: #77746e; --line: rgba(43,43,42,.12); --accent: #b9695a; --code: #ebe8e1; }
+    @media (prefers-color-scheme: dark) { :root { --bg: #1f1e1c; --card: #262523; --ink: #e9e7e2; --soft: #9a978f; --line: rgba(233,231,226,.14); --accent: #d08577; --code: #181715; } }
+    * { box-sizing: border-box; margin: 0; }
+    body { background: var(--bg); color: var(--ink); font: 1rem/1.7 "Inter", "Roboto", system-ui, sans-serif; padding: 56px 20px 96px; }
+    main { max-width: 760px; margin: 0 auto; }
+    h1 { font-size: clamp(2rem, 6vw, 2.75rem); font-weight: 300; letter-spacing: -.03em; line-height: 1.15; }
+    .meta { margin-top: 12px; color: var(--soft); }
+    nav { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 20px; }
+    a { color: var(--accent); }
+
+    .ias { margin-top: 40px; padding: 20px 24px; border-radius: 14px; background: var(--card); border: 1px solid var(--line); }
+    .ias h2 { font-size: 1rem; font-weight: 500; }
+    .ias ol { margin: 8px 0 0 1.2em; color: var(--soft); }
+
+    article { margin-top: 48px; padding: 28px; border-radius: 14px; background: var(--card); border: 1px solid var(--line); }
+    article h2 { font-size: 1.25rem; font-weight: 500; }
+    .ia { margin-top: 4px; color: var(--soft); font-size: .9375rem; }
+    h3 { margin-top: 24px; font-size: .8125rem; font-weight: 500; color: var(--soft); }
+    pre { margin-top: 8px; padding: 16px; border-radius: 10px; background: var(--code); font: .875rem/1.6 ui-monospace, "Cascadia Code", Consolas, monospace; white-space: pre-wrap; word-break: break-word; }
+    .shots { display: grid; gap: 16px; margin-top: 8px; }
+    figure img { display: block; width: 100%; height: auto; border-radius: 10px; border: 1px solid var(--line); }
+    figcaption { margin-top: 6px; color: var(--soft); font-size: .8125rem; }
+    .missing { padding: 28px 16px; border: 1px dashed var(--line); border-radius: 10px; color: var(--soft); text-align: center; font-size: .875rem; }
+    .result { margin-top: 8px; }
+  </style>
+</head>
+<body>
+  <main id="app"></main>
+
+  <script>
+  "use strict";
+
+
+  const PROYECTO = {
+    titulo: "Proceso de resolución: aplicación Pomodoro",
+    autor: "Hugo Gómez López",
+    asignatura: "Desarrollo de Interfaces",
+  };
+
+
+  const VERSIONES = [
+    {
+      titulo: "Prompt 1 · Creación del prompt",
+      ia: "Gemini (Google)",
+      prompt: `Realizar una aplicación tipo Pomodoro.
+
+Técnica de estudio
+
+Ejemplo
+
+La entrega:
+
+PDF con Enlace a la app web, otro enlace a tu
+repositorio de github (el de esta tarea) y otro enlace a una página web
+
+con el proceso de resolución.
+
+Proceso de resolución: Prompts e IAs usadas en el
+
+orden aplicado para obtener  las distintas versiones de la app, con
+
+capturas de pantalla del proceso.
+
+A partir de esta tarea, este será la forma de entrega para todas las tareas. https://www.solstic.io/por-que-utilizar-la-tecnica-de-estudio-pomodoro-y-como-hacerlo-correctamente y https://pomodorotimer.online/es/ . Créame un promt en el cual quiero que lo hagas como si fueses un desarrollador de páginas web, con conocimientos avanzados de HTML5, CSS, JavaScript y de más. Quiero que la temática sea de muy muy minimalista y que busques ideas de los pomodoros o videos mas famosos`,
+      capturas: [
+        { src: "Capturas/1.png", pie: "Prompt generado por Gemini, listo para usarlo con otra IA." },
+      ],
+      resultado: "Gemini redactó el prompt detallado (rol de desarrollador senior, diseño, funcionalidad y entregables) que se usó después para pedir la aplicación.",
+    },
+    {
+      titulo: "Prompt 2 · Versión 1: base minimalista",
+      ia: "Claude (Anthropic)",
+      prompt: `Actúa como un desarrollador web Senior especializado en interfaces de usuario, con conocimientos avanzados en HTML5, CSS3 moderno y Vanilla JavaScript (ES6+).
+Tu tarea es desarrollar el código completo (HTML, CSS y JS) para una aplicación web funcional de tipo Pomodoro (temporizador de estudio).
+Diseño y Estética: Quiero que la temática sea extremadamente minimalista. Basándote en los temporizadores más famosos de internet (como pomodorotimer.online) y la estética limpia de los videos de estudio 'Study with me' más virales de YouTube, aplica las siguientes reglas de diseño:
+
+Usa una paleta de colores monocromática o muy neutra (fondos blancos/cremas rotos, texto gris oscuro/negro), con un solo color de acento muy sutil para indicar cuándo está corriendo el tiempo.
+Tipografía moderna, grande y sin serifa (ej. Inter, Roboto o system-ui).
+Abundante espacio en blanco (whitespace), centrado perfecto, esquinas ligeramente redondeadas y sin bordes pesados ni sombras excesivas.
+Botones limpios, preferiblemente usando iconos minimalistas o texto muy discreto, sin efectos 3D.
+Funcionalidad principal (JavaScript):
+
+El reloj central debe ser el protagonista.
+Tres modos clásicos: Pomodoro (25 min), Descanso corto (5 min) y Descanso largo (15 min).
+Controles básicos: Iniciar, Pausar y Reiniciar.
+Transición fluida (cambio sutil de color de fondo) al pasar de modo trabajo a modo descanso.
+Implementa un sonido suave o alerta visual cuando el temporizador llegue a cero.
+Opcional pero valorado: Usa localStorage para guardar las preferencias del usuario o el progreso de los ciclos, asegurando persistencia básica de datos.`,
+      capturas: [
+        { src: "Capturas/2.png", pie: "Versión 1: Pomodoro minimalista con los tres modos y los controles." },
+      ],
+      resultado: "Tres modos (25, 5 y 15 min), iniciar, pausar y reiniciar, cambio de color entre modos, campanilla al llegar a cero y guardado en localStorage.",
+    },
+    {
+      titulo: "Prompt 3 · Versión 2: ajustes y vídeo de fondo",
+      ia: "Claude (Anthropic)",
+      prompt: `Quiero que añadas más opciones las que tu veas que tengan sentido y la temática cámbiala con un video de fondo de chimenea  que no acabe nunca`,
+      capturas: [
+        { src: "Capturas/3.png", pie: "Versión 2: ajustes, tarea actual y fondo de fuego animado." },
+      ],
+      resultado: "Panel de ajustes, estadísticas del día, pantalla completa, modo inmersivo y un fondo de chimenea animado que no termina nunca.",
+    },
+    {
+      titulo: "Prompt 4 · Versión 3: vídeo elegido por el usuario",
+      ia: "Claude (Anthropic)",
+      prompt: `Quiero que quites lo de la chimenea, como tal no tiene temática esta enfocado a que elija el usuario y ya meto yo en la linea que digas o un video o mp4. Lo que he pensado es quitar la temática poner yo algo predeterminado y que luego cualquier usuario pueda meter o video o mp4`,
+      capturas: [
+        { src: "Capturas/4.png", pie: "Versión 3: sin temática, con fondo neutro a la espera del vídeo del usuario." },
+      ],
+      resultado: "Se quita la chimenea. El vídeo predeterminado se define en una constante del código y cada usuario puede poner el suyo (YouTube o .mp4) desde Ajustes.",
+    },
+    {
+      titulo: "Prompt 5 · Versión 4: sonido del vídeo",
+      ia: "Claude (Anthropic)",
+      prompt: `Me gastaría que hubiera una opción para poder poner el sonido o quitarlo`,
+      capturas: [
+        { src: "Capturas/5.png", pie: "Versión 4: nuevo botón de sonido del vídeo, arriba a la derecha." },
+      ],
+      resultado: "Botón y atajo (M) para activar o silenciar el sonido del vídeo de fondo, con control de volumen en Ajustes.",
+    },
+  ];
+
+
+  // Crea un elemento; los hijos de texto se insertan como texto (seguro con < y >)
+  const h = (tag, attrs = {}, ...kids) => {
+    const e = document.createElement(tag);
+    for (const [k, v] of Object.entries(attrs)) k === "class" ? (e.className = v) : e.setAttribute(k, v);
+    e.append(...kids.filter(Boolean));
+    return e;
+  };
+
+  // Captura con enlace a tamaño completo; si el archivo no existe, avisa de cuál falta
+  function figure({ src, pie }) {
+    const img = h("img", { src, alt: pie || "Captura del proceso", loading: "lazy" });
+    const fig = h("figure", {}, h("a", { href: src, target: "_blank", rel: "noopener" }, img), pie && h("figcaption", {}, pie));
+    img.addEventListener("error", () => img.closest("a").replaceWith(h("div", { class: "missing" }, `Falta la captura: ${src}`)));
+    return fig;
+  }
+
+  function render() {
+    const app = document.getElementById("app");
+    document.title = PROYECTO.titulo;
+
+    const links = h("nav", {}, h("a", { href: PROYECTO.appUrl }, "Abrir la aplicación"),
+      PROYECTO.repoUrl && h("a", { href: PROYECTO.repoUrl }, "Ver el repositorio"));
+    app.append(h("h1", {}, PROYECTO.titulo), h("p", { class: "meta" }, `${PROYECTO.autor} · ${PROYECTO.asignatura}`), links);
+
+    // Resumen de IAs en el orden aplicado
+    const lista = h("ol", {}, ...VERSIONES.map((v) => h("li", {}, `${v.titulo}: ${v.ia}`)));
+    app.append(h("section", { class: "ias" }, h("h2", {}, "IAs usadas, en orden"), lista));
+
+    // Una tarjeta por versión
+    VERSIONES.forEach((v) => {
+      app.append(h("article", {},
+        h("h2", {}, v.titulo),
+        h("p", { class: "ia" }, `IA usada: ${v.ia}`),
+        h("h3", {}, "Prompt"), h("pre", {}, v.prompt),
+        h("h3", {}, "Capturas del proceso"), h("div", { class: "shots" }, ...v.capturas.map(figure)),
+        h("h3", {}, "Resultado"), h("p", { class: "result" }, v.resultado)));
+    });
+  }
+
+  render();
+  </script>
+</body>
+</html>
