@@ -39,7 +39,7 @@
 
 
   const PROYECTO = {
-    titulo: "Proceso de resolución: aplicación Pomodoro",
+    titulo: "Pomodoro",
     autor: "Hugo Gómez López",
     asignatura: "Desarrollo de Interfaces",
   };
@@ -147,10 +147,6 @@ Opcional pero valorado: Usa localStorage para guardar las preferencias del usuar
   function render() {
     const app = document.getElementById("app");
     document.title = PROYECTO.titulo;
-
-    const links = h("nav", {}, h("a", { href: PROYECTO.appUrl }, "Abrir la aplicación"),
-      PROYECTO.repoUrl && h("a", { href: PROYECTO.repoUrl }, "Ver el repositorio"));
-    app.append(h("h1", {}, PROYECTO.titulo), h("p", { class: "meta" }, `${PROYECTO.autor} · ${PROYECTO.asignatura}`), links);
 
     // Resumen de IAs en el orden aplicado
     const lista = h("ol", {}, ...VERSIONES.map((v) => h("li", {}, `${v.titulo}: ${v.ia}`)));
