@@ -147,6 +147,7 @@ Opcional pero valorado: Usa localStorage para guardar las preferencias del usuar
   function render() {
     const app = document.getElementById("app");
     document.title = PROYECTO.titulo;
+    app.append(h("h1", {}, PROYECTO.titulo), h("p", { class: "meta" }, `${PROYECTO.autor} · ${PROYECTO.asignatura}`));
 
     // Resumen de IAs en el orden aplicado
     const lista = h("ol", {}, ...VERSIONES.map((v) => h("li", {}, `${v.titulo}: ${v.ia}`)));
